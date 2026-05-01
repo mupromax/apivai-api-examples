@@ -5,7 +5,8 @@ import os
 import requests
 
 API_KEY = os.getenv("APIVAI_API_KEY", "YOUR_APIVAI_API_KEY")
-BASE_URL = "https://api.apivai.com/v1"
+BASE_URL = os.getenv("APIVAI_BASE_URL", "https://api.apivai.com/v1")
+MODEL = os.getenv("APIVAI_MODEL", "YOUR_MODEL_NAME")
 
 
 def main() -> None:
@@ -15,7 +16,7 @@ def main() -> None:
         "Content-Type": "application/json",
     }
     payload = {
-        "model": "gpt-4o-mini",
+        "model": MODEL,
         "messages": [
             {"role": "system", "content": "You are a concise technical assistant."},
             {"role": "user", "content": "Explain API gateways in 2 sentences."},
@@ -32,5 +33,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     if API_KEY == "YOUR_APIVAI_API_KEY":
-        print("Warning: replace YOUR_APIVAI_API_KEY before production use.")
+        print("Warning: set APIVAI_API_KEY before sending real requests.")
+    if MODEL == "YOUR_MODEL_NAME":
+        print("Warning: set APIVAI_MODEL to a model returned by GET /models.")
     main()
