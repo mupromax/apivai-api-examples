@@ -4,7 +4,8 @@
  */
 
 const apiKey = process.env.APIVAI_API_KEY || "YOUR_APIVAI_API_KEY";
-const baseUrl = "https://api.apivai.com/v1";
+const baseUrl = process.env.APIVAI_BASE_URL || "https://api.apivai.com/v1";
+const model = process.env.APIVAI_MODEL || "YOUR_MODEL_NAME";
 
 async function main() {
   const response = await fetch(`${baseUrl}/chat/completions`, {
@@ -14,7 +15,7 @@ async function main() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "gpt-4o-mini",
+      model,
       messages: [
         { role: "system", content: "You are a concise technical assistant." },
         { role: "user", content: "Explain API gateways in 2 sentences." },
@@ -33,7 +34,10 @@ async function main() {
 }
 
 if (apiKey === "YOUR_APIVAI_API_KEY") {
-  console.warn("Warning: replace YOUR_APIVAI_API_KEY before production use.");
+  console.warn("Warning: set APIVAI_API_KEY before sending real requests.");
+}
+if (model === "YOUR_MODEL_NAME") {
+  console.warn("Warning: set APIVAI_MODEL to a model returned by GET /models.");
 }
 
 main().catch((err) => {

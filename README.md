@@ -1,131 +1,104 @@
 # APIVAI API Examples
 
-Practical examples for using **APIVAI** as an OpenAI-compatible API gateway.
+Practical examples for using APIVAI as an OpenAI-compatible API.
 
-- Website: [apivai.com](https://apivai.com)
-- Base URL: `https://api.apivai.com/v1`
+- API base URL (default): `https://api.apivai.com/v1`
 
-This repository is designed for developers who want to quickly test chat completions using:
+## What this repository is for
+
+This repository provides minimal examples for:
 
 - Python
 - Node.js
 - cURL
 
-## Why this repo exists
-
-The goal of this repo is simple: provide a fast, low-friction starting point for developers who want to call APIVAI endpoints without building a full app first.
-
-It focuses on:
-
-- Minimal examples you can run in minutes
-- Familiar OpenAI-style request patterns
-- Clear setup and troubleshooting notes
-
-Use it as a reference for local testing, onboarding teammates, or validating API connectivity in a new environment.
+Use it to validate connectivity and request format before integrating into your own application.
 
 ## Requirements
 
 Before running examples, make sure you have:
 
-- An APIVAI API key
+- An API key from your APIVAI dashboard
 - Network access to `https://api.apivai.com/v1`
-- One of the following runtimes/tools:
+- One of:
   - Python 3 for `examples/python-chat.py`
-  - Node.js for `examples/node-chat.js`
+  - Node.js 18+ for `examples/node-chat.js`
   - `curl` for `examples/curl-chat.md`
 
-You should also be comfortable setting environment variables in your shell.
+## Quick start
 
-## Overview
+### 1) Set environment variables
 
-APIVAI provides an OpenAI-compatible interface so you can reuse familiar client patterns while pointing requests to APIVAI endpoints.
+All examples use these variables:
 
-This repo includes:
+- `APIVAI_API_KEY`
+- `APIVAI_BASE_URL` (default: `https://api.apivai.com/v1`)
+- `APIVAI_MODEL` (default placeholder: `YOUR_MODEL_NAME`)
 
-- Minimal runnable chat examples in `examples/`
-- Setup instructions in `docs/setup.md`
-- Common troubleshooting and usage guidance in `docs/faq.md`
-
-## Quick Start
-
-1. Get an API key from your APIVAI account.
-2. Set your API key as an environment variable.
-3. Run one of the examples.
-
-### 1) Set your API key
-
-**macOS / Linux**
+macOS/Linux:
 
 ```bash
 export APIVAI_API_KEY="YOUR_APIVAI_API_KEY"
+export APIVAI_BASE_URL="https://api.apivai.com/v1"
+export APIVAI_MODEL="YOUR_MODEL_NAME"
 ```
 
-**Windows (PowerShell)**
+PowerShell:
 
 ```powershell
 $env:APIVAI_API_KEY="YOUR_APIVAI_API_KEY"
+$env:APIVAI_BASE_URL="https://api.apivai.com/v1"
+$env:APIVAI_MODEL="YOUR_MODEL_NAME"
 ```
 
-### 2) Run examples
+### 2) Discover available models first
+
+Do not hardcode a model name that may not be available for your account.
+
+Call:
+
+`GET https://api.apivai.com/v1/models`
+
+Example:
+
+```bash
+curl -s "$APIVAI_BASE_URL/models" \
+  -H "Authorization: Bearer $APIVAI_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
+Then set `APIVAI_MODEL` to one of the returned model names.
+
+### 3) Run examples
 
 - Python: `python3 examples/python-chat.py`
 - Node.js: `node examples/node-chat.js`
 - cURL: see `examples/curl-chat.md`
 
-## Repository Structure
+## Repository structure
 
 ```text
 .
 ├── README.md
+├── .env.example
 ├── examples/
 │   ├── python-chat.py
 │   ├── node-chat.js
 │   └── curl-chat.md
-└── docs/
-    ├── setup.md
-    └── faq.md
+├── docs/
+│   ├── setup.md
+│   ├── faq.md
+│   └── testing.md
+└── .github/
+    └── ISSUE_TEMPLATE/
 ```
 
-## Contributing
+## Security notes
 
-Contributions are welcome, especially if they keep examples simple and easier to run.
-
-Good contributions include:
-
-- Fixing incorrect setup or usage details
-- Improving clarity in examples or docs
-- Adding small, focused examples that match the existing style
-
-Before opening a PR:
-
-1. Keep changes scoped and easy to review.
-2. Avoid adding secrets, private endpoints, or environment-specific assumptions.
-3. Update docs when behavior or commands change.
-
-## Roadmap
-
-Near-term improvements we expect to add:
-
-- More task-focused examples (for example, structured output or tool-calling patterns)
-- Basic error-handling patterns across Python and Node.js examples
-- Optional environment setup helpers for faster local onboarding
-
-If you want a specific example, open an issue with the use case and preferred language.
-
-## Security Notes
-
-- Never commit API keys to Git.
-- Never expose API keys in frontend/browser code.
-- Use environment variables or a secure secret manager.
-- Rotate keys immediately if they are exposed.
-
-## Compatibility Notes
-
-Examples in this repository target OpenAI-style chat completion workflows against:
-
-`https://api.apivai.com/v1`
-
-Refer to APIVAI documentation for the latest model and endpoint details.
+- Never commit real API keys.
+- Never expose API keys in browser/frontend code.
+- Use environment variables or a secrets manager.
+- Rotate keys immediately if exposed.
 
 ## License
 

@@ -1,19 +1,33 @@
 # cURL Chat Example
 
-Use this request format to call APIVAI's OpenAI-compatible chat completions endpoint.
+Use this request format to call APIVAI chat completions.
 
-## Endpoint
-
-`POST https://api.apivai.com/v1/chat/completions`
-
-## Example Request
+## Environment variables
 
 ```bash
-curl -X POST "https://api.apivai.com/v1/chat/completions" \
-  -H "Authorization: Bearer YOUR_APIVAI_API_KEY" \
+export APIVAI_API_KEY="YOUR_APIVAI_API_KEY"
+export APIVAI_BASE_URL="https://api.apivai.com/v1"
+export APIVAI_MODEL="YOUR_MODEL_NAME"
+```
+
+## Check available models first
+
+```bash
+curl -s "$APIVAI_BASE_URL/models" \
+  -H "Authorization: Bearer $APIVAI_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
+Set `APIVAI_MODEL` to one of the model names returned by this endpoint.
+
+## Chat completion request
+
+```bash
+curl -X POST "$APIVAI_BASE_URL/chat/completions" \
+  -H "Authorization: Bearer $APIVAI_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "gpt-4o-mini",
+    "model": "'"$APIVAI_MODEL"'",
     "messages": [
       {"role": "system", "content": "You are a concise technical assistant."},
       {"role": "user", "content": "Explain API gateways in 2 sentences."}
@@ -22,7 +36,6 @@ curl -X POST "https://api.apivai.com/v1/chat/completions" \
   }'
 ```
 
-## Security Notes
+## Security note
 
-- Do not paste real API keys into shared terminals, screenshots, or public docs.
-- Prefer environment variables in local development and secret managers in production.
+Do not commit real API keys to source control.
