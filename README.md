@@ -1,6 +1,6 @@
 # APIVAI API Examples
 
-Practical examples for using APIVAI as an OpenAI-compatible API.
+Minimal Python, Node.js, and cURL examples for testing APIVAI's OpenAI-compatible API.
 
 - API base URL (default): `https://api.apivai.com/v1`
 
@@ -24,6 +24,13 @@ Before running examples, make sure you have:
   - Python 3 for `examples/python-chat.py`
   - Node.js 18+ for `examples/node-chat.js`
   - `curl` for `examples/curl-chat.md`
+
+## Tested flow
+
+- Get an API key from the APIVAI dashboard.
+- Call `GET /v1/models` to find available model names.
+- Set `APIVAI_MODEL` to one returned model name.
+- Run one of the examples.
 
 ## Quick start
 
