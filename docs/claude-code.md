@@ -2,6 +2,8 @@
 
 This note shows how to adapt the repository examples for Claude Code or similar local agent workflows when the tool accepts OpenAI-compatible endpoint settings.
 
+Claude-specific workflows can differ by tool and provider configuration. Some tools accept OpenAI-compatible settings with `APIVAI_BASE_URL=https://api.apivai.com/v1`; Claude Code may also use Anthropic-compatible settings depending on the workflow and provider configuration. Follow APIVAI's current Claude proxy documentation when configuring Claude-specific workflows, and avoid assuming that every Claude workflow uses `/v1/chat/completions`.
+
 The repository examples use:
 
 ```text
