@@ -38,7 +38,7 @@ This repository is not a production application framework. Treat it as a set of 
 
 ## Tooling notes
 
-- **Claude Code:** You can use the examples as a starting point for local agent workflows that need an OpenAI-compatible endpoint. See the APIVAI Claude API proxy page for current endpoint guidance: [https://apivai.com/claude-api-proxy](https://apivai.com/claude-api-proxy).
+- **Claude Code:** You can use the examples as a starting point for local agent workflows that need an OpenAI-compatible endpoint. For Claude-specific workflows, check whether your tool expects OpenAI-compatible or Anthropic-compatible settings. See the APIVAI Claude API proxy page for current endpoint guidance: [https://apivai.com/claude-api-proxy](https://apivai.com/claude-api-proxy).
 - **Cursor:** Use the same API key, base URL, and model-discovery approach described below when configuring editor or agent tooling that accepts OpenAI-compatible settings. Refer to [APIVAI docs](https://apivai.com/docs) for current configuration details.
 
 ## Requirements
