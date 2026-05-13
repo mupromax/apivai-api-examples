@@ -32,6 +32,9 @@ This repository is not a production application framework. Treat it as a set of 
 | Python | [`examples/python-chat.py`](./examples/python-chat.py) | Sends a chat completion request from a small Python script. |
 | Node.js | [`examples/node-chat.js`](./examples/node-chat.js) | Sends a chat completion request with the built-in Node.js `fetch` API. |
 | cURL | [`examples/curl-chat.md`](./examples/curl-chat.md) | Shows a shell-based request that is useful for quick endpoint testing. |
+| Python streaming | [`examples/python-streaming.py`](./examples/python-streaming.py) | Reads streamed chat-completion chunks from APIVAI. |
+| Node.js streaming | [`examples/node-streaming.js`](./examples/node-streaming.js) | Reads streamed chat-completion chunks with built-in Node.js APIs. |
+| Models cURL | [`examples/models-list-curl.md`](./examples/models-list-curl.md) | Lists available models before setting `APIVAI_MODEL`. |
 
 ## Tooling notes
 
@@ -116,6 +119,13 @@ For cURL, follow [`examples/curl-chat.md`](./examples/curl-chat.md).
 
 For a longer setup walkthrough, see [`docs/setup.md`](./docs/setup.md). For testing commands, see [`docs/testing.md`](./docs/testing.md). For common questions, see [`docs/faq.md`](./docs/faq.md).
 
+Additional developer guides:
+
+- [`docs/openai-compatible-endpoint.md`](./docs/openai-compatible-endpoint.md) explains the OpenAI-compatible base URL, request shape, and streaming behavior.
+- [`docs/claude-code.md`](./docs/claude-code.md) maps APIVAI environment variables to Claude Code-style OpenAI-compatible settings.
+- [`docs/cursor.md`](./docs/cursor.md) outlines editor configuration checks for Cursor-style tools.
+- [`docs/troubleshooting.md`](./docs/troubleshooting.md) provides status-code and streaming debugging steps.
+
 ## Security notes
 
 - Never commit real API keys, tokens, or account identifiers.
@@ -133,11 +143,18 @@ For a longer setup walkthrough, see [`docs/setup.md`](./docs/setup.md). For test
 ├── examples/
 │   ├── python-chat.py
 │   ├── node-chat.js
-│   └── curl-chat.md
+│   ├── curl-chat.md
+│   ├── python-streaming.py
+│   ├── node-streaming.js
+│   └── models-list-curl.md
 ├── docs/
 │   ├── setup.md
 │   ├── faq.md
-│   └── testing.md
+│   ├── testing.md
+│   ├── openai-compatible-endpoint.md
+│   ├── claude-code.md
+│   ├── cursor.md
+│   └── troubleshooting.md
 └── .github/
     └── ISSUE_TEMPLATE/
 ```
