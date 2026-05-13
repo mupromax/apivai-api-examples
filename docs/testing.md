@@ -1,6 +1,6 @@
 # Testing Guide
 
-This guide shows how to test APIVAI endpoints with environment variables.
+This guide provides repeatable checks for APIVAI endpoints using environment variables. Use these commands to confirm credentials, endpoint reachability, and request formatting before moving code into an application.
 
 ## Environment variables
 
@@ -41,7 +41,7 @@ Invoke-RestMethod -Method GET -Uri "$env:APIVAI_BASE_URL/models" -Headers @{
 }
 ```
 
-Set `APIVAI_MODEL` to one of the returned model names.
+Set `APIVAI_MODEL` to one of the returned model names before running chat-completion tests.
 
 ## 2) Test `POST /v1/chat/completions`
 
@@ -77,7 +77,19 @@ Invoke-RestMethod -Method POST -Uri "$env:APIVAI_BASE_URL/chat/completions" -Hea
 } -Body $body
 ```
 
+## Expected result
+
+A successful response should include generated assistant content. If the request fails, record the HTTP status, timestamp, endpoint, and sanitized response body before troubleshooting.
+
+## Troubleshooting checks
+
+- Confirm `APIVAI_API_KEY` is present in the shell running the command.
+- Confirm `APIVAI_BASE_URL` is `https://api.apivai.com/v1` unless you intentionally use another endpoint.
+- Confirm `APIVAI_MODEL` matches a model returned by `GET /v1/models`.
+- Confirm the JSON body is valid and the request includes `Content-Type: application/json`.
+
 ## Security warning
 
 - Never commit real API keys.
-- Never paste real API keys into issues, pull requests, or screenshots.
+- Never paste real API keys into issues, pull requests, screenshots, or shared terminal logs.
+- Redact prompts and responses if they include user data, account information, or internal identifiers.

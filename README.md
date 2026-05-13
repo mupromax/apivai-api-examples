@@ -1,46 +1,63 @@
 # APIVAI API Examples
 
-Minimal Python, Node.js, and cURL examples for testing APIVAI's OpenAI-compatible API.
+Developer-focused examples for calling APIVAI with OpenAI-compatible request patterns. The repository keeps each example intentionally small so you can inspect the request shape, confirm credentials, and adapt the code to your own application.
 
-- API base URL (default): `https://api.apivai.com/v1`
+- APIVAI website: [https://apivai.com/](https://apivai.com/)
+- Product documentation: [https://apivai.com/docs](https://apivai.com/docs)
+- OpenAI-compatible API guide: [https://apivai.com/openai-compatible-api](https://apivai.com/openai-compatible-api)
+- Claude API proxy notes: [https://apivai.com/claude-api-proxy](https://apivai.com/claude-api-proxy)
+- Pricing: [https://apivai.com/pricing](https://apivai.com/pricing)
+
+Default API base URL used by these examples:
+
+```text
+https://api.apivai.com/v1
+```
 
 ## What this repository is for
 
-This repository provides minimal examples for:
+Use this repository when you want to:
 
-- Python
-- Node.js
-- cURL
+- Check that your APIVAI API key and network path are configured correctly.
+- See minimal Python, Node.js, and cURL requests before integrating a full SDK or application.
+- Verify model names with `GET /v1/models` instead of hardcoding a value.
+- Keep example code simple enough to copy into a local prototype and then replace with your own error handling, logging, and configuration.
 
-Use it to validate connectivity and request format before integrating into your own application.
+This repository is not a production application framework. Treat it as a set of small connectivity and request-format examples.
+
+## Example entry points
+
+| Runtime | File | Purpose |
+| --- | --- | --- |
+| Python | [`examples/python-chat.py`](./examples/python-chat.py) | Sends a chat completion request from a small Python script. |
+| Node.js | [`examples/node-chat.js`](./examples/node-chat.js) | Sends a chat completion request with the built-in Node.js `fetch` API. |
+| cURL | [`examples/curl-chat.md`](./examples/curl-chat.md) | Shows a shell-based request that is useful for quick endpoint testing. |
+
+## Tooling notes
+
+- **Claude Code:** You can use the examples as a starting point for local agent workflows that need an OpenAI-compatible endpoint. See the APIVAI Claude API proxy page for current endpoint guidance: [https://apivai.com/claude-api-proxy](https://apivai.com/claude-api-proxy).
+- **Cursor:** Use the same API key, base URL, and model-discovery approach described below when configuring editor or agent tooling that accepts OpenAI-compatible settings. Refer to [APIVAI docs](https://apivai.com/docs) for current configuration details.
 
 ## Requirements
 
 Before running examples, make sure you have:
 
-- An API key from your APIVAI dashboard
-- Network access to `https://api.apivai.com/v1`
-- One of:
-  - Python 3 for `examples/python-chat.py`
-  - Node.js 18+ for `examples/node-chat.js`
-  - `curl` for `examples/curl-chat.md`
-
-## Tested flow
-
-- Get an API key from the APIVAI dashboard.
-- Call `GET /v1/models` to find available model names.
-- Set `APIVAI_MODEL` to one returned model name.
-- Run one of the examples.
+- An APIVAI API key from your account.
+- Network access to `https://api.apivai.com/v1`.
+- One of the following local runtimes:
+  - Python 3.9+ for `examples/python-chat.py`.
+  - Node.js 18+ for `examples/node-chat.js`.
+  - `curl` for `examples/curl-chat.md`.
 
 ## Quick start
 
 ### 1) Set environment variables
 
-All examples use these variables:
+All examples read these environment variables:
 
-- `APIVAI_API_KEY`
-- `APIVAI_BASE_URL` (default: `https://api.apivai.com/v1`)
-- `APIVAI_MODEL` (default placeholder: `YOUR_MODEL_NAME`)
+- `APIVAI_API_KEY`: your secret API key.
+- `APIVAI_BASE_URL`: defaults to `https://api.apivai.com/v1` when not set in supported examples.
+- `APIVAI_MODEL`: a model name returned for your account.
 
 macOS/Linux:
 
@@ -58,13 +75,13 @@ $env:APIVAI_BASE_URL="https://api.apivai.com/v1"
 $env:APIVAI_MODEL="YOUR_MODEL_NAME"
 ```
 
-### 2) Discover available models first
+### 2) Discover available models
 
-Do not hardcode a model name that may not be available for your account.
+Model availability can vary by account and over time. Start by calling:
 
-Call:
-
-`GET https://api.apivai.com/v1/models`
+```text
+GET https://api.apivai.com/v1/models
+```
 
 Example:
 
@@ -74,13 +91,38 @@ curl -s "$APIVAI_BASE_URL/models" \
   -H "Content-Type: application/json"
 ```
 
-Then set `APIVAI_MODEL` to one of the returned model names.
+Set `APIVAI_MODEL` to a model name returned by that response.
 
-### 3) Run examples
+### 3) Run an example
 
-- Python: `python3 examples/python-chat.py`
-- Node.js: `node examples/node-chat.js`
-- cURL: see `examples/curl-chat.md`
+```bash
+python3 examples/python-chat.py
+```
+
+```bash
+node examples/node-chat.js
+```
+
+For cURL, follow [`examples/curl-chat.md`](./examples/curl-chat.md).
+
+## Common errors / troubleshooting
+
+- `401 Unauthorized`: Confirm that `APIVAI_API_KEY` is set, has no extra spaces, and is sent as `Authorization: Bearer <key>`.
+- `404 Not Found`: Check that `APIVAI_BASE_URL` includes `/v1` and that the endpoint path is correct.
+- `model_not_found` or similar model errors: call `GET /v1/models` again and use a returned model name.
+- `429 Too Many Requests`: Reduce request rate and retry with exponential backoff.
+- `5xx` responses: retry after a short delay and capture any request identifiers or timestamps for support/debugging.
+- Empty or malformed responses: verify that the request body is valid JSON and that `Content-Type: application/json` is present.
+
+For a longer setup walkthrough, see [`docs/setup.md`](./docs/setup.md). For testing commands, see [`docs/testing.md`](./docs/testing.md). For common questions, see [`docs/faq.md`](./docs/faq.md).
+
+## Security notes
+
+- Never commit real API keys, tokens, or account identifiers.
+- Do not expose secret keys in browser or mobile client code; route requests through a server you control.
+- Prefer environment variables, a local `.env` file excluded from Git, or a managed secrets store.
+- Rotate keys immediately if they are pasted into logs, screenshots, issues, pull requests, or chat messages.
+- Review logs before sharing them publicly; request and response bodies may contain sensitive user data.
 
 ## Repository structure
 
@@ -99,13 +141,6 @@ Then set `APIVAI_MODEL` to one of the returned model names.
 └── .github/
     └── ISSUE_TEMPLATE/
 ```
-
-## Security notes
-
-- Never commit real API keys.
-- Never expose API keys in browser/frontend code.
-- Use environment variables or a secrets manager.
-- Rotate keys immediately if exposed.
 
 ## License
 
