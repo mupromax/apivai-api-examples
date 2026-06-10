@@ -36,10 +36,36 @@ This repository is not a production application framework. Treat it as a set of 
 | Node.js streaming | [`examples/node-streaming.js`](./examples/node-streaming.js) | Reads streamed chat-completion chunks with built-in Node.js APIs. |
 | Models cURL | [`examples/models-list-curl.md`](./examples/models-list-curl.md) | Lists available models before setting `APIVAI_MODEL`. |
 
-## Tooling notes
+## SDK & framework examples
 
-- **Claude Code:** You can use the examples as a starting point for local agent workflows that need an OpenAI-compatible endpoint. For Claude-specific workflows, check whether your tool expects OpenAI-compatible or Anthropic-compatible settings. See the APIVAI Claude API proxy page for current endpoint guidance: [https://apivai.com/claude-api-proxy](https://apivai.com/claude-api-proxy).
-- **Cursor:** Use the same API key, base URL, and model-discovery approach described below when configuring editor or agent tooling that accepts OpenAI-compatible settings. Refer to [APIVAI docs](https://apivai.com/docs) for current configuration details.
+Because the endpoint is OpenAI- and Anthropic-compatible, the official SDKs and popular
+frameworks work by overriding the base URL and key — no custom integration code.
+
+| SDK / framework | File | Notes |
+| --- | --- | --- |
+| OpenAI SDK (Python) | [`examples/openai-sdk-python.py`](./examples/openai-sdk-python.py) | Official `openai` package, `base_url` override. |
+| OpenAI SDK (Node) | [`examples/openai-sdk-node.js`](./examples/openai-sdk-node.js) | Official `openai` package, `baseURL` override. |
+| Anthropic SDK (Python) | [`examples/anthropic-sdk-python.py`](./examples/anthropic-sdk-python.py) | Official `anthropic` package against `/v1/messages`. |
+| LangChain (Python) | [`examples/langchain-python.py`](./examples/langchain-python.py) | `ChatOpenAI(base_url=...)`. |
+| LlamaIndex (Python) | [`examples/llamaindex-python.py`](./examples/llamaindex-python.py) | `OpenAILike(api_base=...)`. |
+| Function calling (Python) | [`examples/function-calling-python.py`](./examples/function-calling-python.py) | Tool-use round-trip via the OpenAI SDK. |
+
+## Use with your editor or agent
+
+These tools accept an OpenAI-compatible base URL + key — set `https://api.apivai.com/v1` and a
+model from `GET /v1/models`:
+
+| Tool | Guide |
+| --- | --- |
+| Claude Code | [`docs/claude-code.md`](./docs/claude-code.md) |
+| Cursor | [`docs/cursor.md`](./docs/cursor.md) |
+| Codex CLI | [`docs/codex-cli.md`](./docs/codex-cli.md) |
+| Cline | [`docs/cline.md`](./docs/cline.md) |
+| Aider | [`docs/aider.md`](./docs/aider.md) |
+
+For Claude-specific workflows, confirm whether your tool expects OpenAI-compatible or
+Anthropic-compatible settings. See the APIVAI Claude API proxy page for current guidance:
+[https://apivai.com/claude-api-proxy](https://apivai.com/claude-api-proxy).
 
 ## Requirements
 
@@ -146,7 +172,13 @@ Additional developer guides:
 │   ├── curl-chat.md
 │   ├── python-streaming.py
 │   ├── node-streaming.js
-│   └── models-list-curl.md
+│   ├── models-list-curl.md
+│   ├── openai-sdk-python.py
+│   ├── openai-sdk-node.js
+│   ├── anthropic-sdk-python.py
+│   ├── langchain-python.py
+│   ├── llamaindex-python.py
+│   └── function-calling-python.py
 ├── docs/
 │   ├── setup.md
 │   ├── faq.md
@@ -154,6 +186,9 @@ Additional developer guides:
 │   ├── openai-compatible-endpoint.md
 │   ├── claude-code.md
 │   ├── cursor.md
+│   ├── codex-cli.md
+│   ├── cline.md
+│   ├── aider.md
 │   └── troubleshooting.md
 └── .github/
     └── ISSUE_TEMPLATE/
