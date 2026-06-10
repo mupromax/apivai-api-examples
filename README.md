@@ -51,6 +51,7 @@ frameworks work by overriding the base URL and key — no custom integration cod
 | OpenAI SDK (Python) | [`examples/openai-sdk-python.py`](./examples/openai-sdk-python.py) | Official `openai` package, `base_url` override. |
 | OpenAI SDK (Node) | [`examples/openai-sdk-node.js`](./examples/openai-sdk-node.js) | Official `openai` package, `baseURL` override. |
 | Anthropic SDK (Python) | [`examples/anthropic-sdk-python.py`](./examples/anthropic-sdk-python.py) | Official `anthropic` package against `/v1/messages`. |
+| Anthropic SDK (Node) | [`examples/anthropic-sdk-node.js`](./examples/anthropic-sdk-node.js) | Official `@anthropic-ai/sdk` package, `baseURL` override. |
 | LangChain (Python) | [`examples/langchain-python.py`](./examples/langchain-python.py) | `ChatOpenAI(base_url=...)`. |
 | LlamaIndex (Python) | [`examples/llamaindex-python.py`](./examples/llamaindex-python.py) | `OpenAILike(api_base=...)`. |
 | Function calling (Python) | [`examples/function-calling-python.py`](./examples/function-calling-python.py) | Tool-use round-trip via the OpenAI SDK. |
@@ -67,6 +68,7 @@ model from `GET /v1/models`:
 | Codex CLI | [`docs/codex-cli.md`](./docs/codex-cli.md) |
 | Cline | [`docs/cline.md`](./docs/cline.md) |
 | Aider | [`docs/aider.md`](./docs/aider.md) |
+| Continue.dev | [`docs/continue-dev.md`](./docs/continue-dev.md) |
 
 For Claude-specific workflows, confirm whether your tool expects OpenAI-compatible or
 Anthropic-compatible settings. See the APIVAI Claude API proxy page for current guidance:
