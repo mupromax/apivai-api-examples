@@ -1,5 +1,10 @@
 # APIVAI API Examples
 
+[APIVAI](https://apivai.com/) is an **OpenAI- and Anthropic-compatible API gateway** for Claude
+and GPT models at a fraction of official list price. Because it's compatible, existing tools
+(Claude Code, Cursor, Cline, Codex CLI, the OpenAI/Anthropic SDKs) work by changing the base URL
+and key — no custom code. Pay-as-you-go, with crypto / USDT / Alipay, no VPN, no subscription.
+
 Developer-focused examples for calling APIVAI with OpenAI-compatible request patterns. The repository keeps each example intentionally small so you can inspect the request shape, confirm credentials, and adapt the code to your own application.
 
 - APIVAI website: [https://apivai.com/](https://apivai.com/)
